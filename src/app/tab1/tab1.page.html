@@ -13,5 +13,66 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-content>
+    <h1>Firebase angular/cli test</h1>
+    <ion-list *ngIf="vacances">
+      <ion-item *ngFor="let item of vacances">
+        <ion-label>{{ item.titol }}</ion-label>
+        <ion-icon slot="end" name="trash-bin-outline" (click)="deleteVacanca(item)"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+  <h1>Nova Vacanca</h1>
+
+  <form [formGroup]="vacancaForm" name="loginForm" novalidate autocomplete="off"
+  *ngIf="vacancaForm">
+
+    <div>
+      <ion-item>
+        <ion-label position="floating">titol</ion-label>
+        <ion-input id="titol" type="titol" name="titol"
+        formControlName="titol"></ion-input>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item>
+        <ion-label position="floating">ciutat</ion-label>
+        <ion-input id="ciutat" type="ciutat" name="ciutat"
+        formControlName="ciutat"></ion-input>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item>
+        <ion-label position="floating">hotel</ion-label>
+        <ion-input id="hotel" type="hotel" name="hotel"
+        formControlName="hotel"></ion-input>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item>
+        <ion-label position="floating">preu</ion-label>
+        <ion-input id="preu" type="preu" name="preu"
+        formControlName="preu"></ion-input>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item>
+        <ion-label position="floating">comentaris</ion-label>
+        <ion-textarea clearOnEdit="true" id="comentaris" type="comentaris" name="comentaris"
+        formControlName="comentaris"></ion-textarea>
+      </ion-item>
+    </div>
+
+    <div>
+        <ion-button color="primary" expand="block" (click)="addVacanca()">Afegir Vacança
+        </ion-button>
+    </div>
+  
+  </form>
+
+
 </ion-content>
