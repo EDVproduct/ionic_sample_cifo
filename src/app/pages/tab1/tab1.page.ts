@@ -4,6 +4,7 @@ import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Vacanca } from 'src/app/models/vacanca';
 import { DataService } from 'src/app/services/data.service';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-tab1',
@@ -21,6 +22,7 @@ export class Tab1Page {
       this.vacances = res;
     });
     this.createForm();
+    this.printCurrentPosition();
   }
 
   createForm(): void {
@@ -56,6 +58,11 @@ export class Tab1Page {
 
   deleteVacanca(vacanca: Vacanca) {
     this.dataService.deleteVacanca(vacanca);
+  }
+
+  async printCurrentPosition() {
+    const coordinates = await Geolocation.getCurrentPosition();
+    console.log('Current position:', coordinates);
   }
 
 }
