@@ -13,7 +13,7 @@ export class DataService {
 
   getVacances(): any {
     const vacancaRef = collection(this.firestore, 'vacances');
-    return collectionData(vacancaRef) as any;
+    return collectionData(vacancaRef, {idField: 'id'}) as any;
   }
 
   getVacancesById(id: string): Observable<Vacanca> {

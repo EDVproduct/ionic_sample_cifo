@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Geolocation } from '@capacitor/geolocation';
 import { GoogleMap } from '@capacitor/google-maps';
 
 @Component({
@@ -8,21 +9,27 @@ import { GoogleMap } from '@capacitor/google-maps';
 })
 export class Tab3Page implements OnInit {
 
+  coordenades: GeolocationPosition;
+
   constructor() {}
   ngOnInit(): void {
-    this.createMap();
+    this.printCurrentPosition();
   }
+
+  async printCurrentPosition() {
+    this.coordenades = await Geolocation.getCurrentPosition();
+    this.createMap();
+  };
 
   async createMap() {
     const myApiKey = '';
     const mapElement = document.getElementById('my-map');
     const mapConfig = {
       center: {
-        lat: 33.6,
-        lng: -117.9,
+        lat: this.coordenades.coords.latitude,
+        lng: this.coordenades.coords.longitude,
       },
-      zoom: 8,
-      androidLiteMode: false,
+      zoom: 15,
     };
     const mapOptions = {
       id: 'map',
@@ -36,8 +43,8 @@ export class Tab3Page implements OnInit {
 
     await map.addMarkers([{
       coordinate: {
-        lat: 33,
-        lng: 117,
+        lat: this.coordenades.coords.latitude,
+        lng: this.coordenades.coords.longitude,
       },
       title: 'Hello world',
     }]);
