@@ -12,7 +12,7 @@ export class DataService {
   constructor(private firestore: Firestore) { }
 
   getVacances(): any {
-    const vacancaRef = collection(this.firestore, 'categoria');
+    const vacancaRef = collection(this.firestore, 'vacances');
     return collectionData(vacancaRef) as any;
   }
 
