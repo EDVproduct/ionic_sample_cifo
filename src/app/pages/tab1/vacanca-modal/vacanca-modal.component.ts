@@ -1,31 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 import { Vacanca } from 'src/app/models/vacanca';
 import { DataService } from 'src/app/services/data.service';
-import { Geolocation } from '@capacitor/geolocation';
-import { IonRouterOutlet, ModalController } from '@ionic/angular';
-import { VacancaModalComponent } from './vacanca-modal/vacanca-modal.component';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'app-vacanca-modal',
+  templateUrl: './vacanca-modal.component.html',
+  styleUrls: ['./vacanca-modal.component.scss'],
 })
-export class Tab1Page {
-
-  vacances: Vacanca[];
+export class VacancaModalComponent implements OnInit {
 
   vacancaForm: FormGroup;
+  constructor(private modalCtrl: ModalController,
+    private dataService: DataService) { }
 
-  constructor(private dataService: DataService,
-    private modalCtrl: ModalController,
-    private routerOutlet: IonRouterOutlet) {
-    dataService.getVacances().subscribe((res) => {
-      console.log(res);
-      this.vacances = res;
-    });
+  ngOnInit() {
     this.createForm();
-    this.printCurrentPosition();
   }
 
   createForm(): void {
@@ -55,26 +46,15 @@ export class Tab1Page {
     vacanca.hotel = this.vacancaForm.get('hotel')?.value;
     vacanca.preu = this.vacancaForm.get('preu')?.value;
     vacanca.comentaris = this.vacancaForm.get('comentaris')?.value;
-    this.dataService.insertVacanca(vacanca);
-    this.resetForm();
-  }
-
-  deleteVacanca(vacanca: Vacanca) {
-    this.dataService.deleteVacanca(vacanca).then((res) => {
-      console.log(res);
+    this.dataService.insertVacanca(vacanca).then((data) => {
+      console.log(data);
+      this.closeModal();
+      this.resetForm();
     });
   }
 
-  async printCurrentPosition() {
-    const coordinates = await Geolocation.getCurrentPosition();
-    console.log('Current position:', coordinates);
-  }
-
-  async presentModal() {
-    const modal = await this.modalCtrl.create({
-      component: VacancaModalComponent
-    });
-    await modal.present();
+  async closeModal() {
+    await this.modalCtrl.dismiss();
   }
 
 }

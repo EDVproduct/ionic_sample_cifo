@@ -6,6 +6,7 @@ import { Tab1Page } from './tab1.page';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { VacancaModalComponent } from './vacanca-modal/vacanca-modal.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
     Tab1PageRoutingModule,
     TranslateModule
   ],
-  declarations: [Tab1Page]
+  declarations: [
+    Tab1Page,
+    VacancaModalComponent
+  ]
 })
 export class Tab1PageModule {}
