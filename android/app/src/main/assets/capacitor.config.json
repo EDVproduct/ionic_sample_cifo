@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "ionic_01",
+	"appId": "com.jrbistuer.cifo",
+	"appName": "cifo",
 	"webDir": "www",
 	"bundledWebRuntime": false
 }
