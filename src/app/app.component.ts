@@ -4,6 +4,8 @@ import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } fro
 import { IonToggle, MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './services/auth.service';
+import { Capacitor } from '@capacitor/core';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
 @Component({
   selector: 'app-root',
@@ -22,12 +24,15 @@ export class AppComponent implements OnInit {
     private translate: TranslateService
   ) {
     this.translate.use('ca');
+    defineCustomElements(window);
   }
 
   ngOnInit(): void {
     console.log('CONSOLETEST segon intent');
     this.setModeToggle();
-    this.setNotifications();
+    if (Capacitor.isPluginAvailable('PushNotifications')) {
+      this.setNotifications();
+    }
   }
 
   openFirst() {

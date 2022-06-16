@@ -31,7 +31,7 @@ export class DataService {
     return deleteDoc(vacancaDocRef);
   }
 
-  updateNote(vacanca) {
+  updateVacanca(vacanca) {
     const vacancaDocRef = doc(this.firestore, `vacances/${vacanca.id}`);
     return updateDoc(vacancaDocRef, vacanca);
   }

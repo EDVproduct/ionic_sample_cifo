@@ -30,6 +30,9 @@
         <ion-card-content>
           {{item.comentaris}}
           <ion-icon slot="end" name="trash-bin-outline" (click)="deleteVacanca(item)"></ion-icon>
+          <ion-avatar slot="end" (click)="doThePhoto(item)">
+            <img [src]="item.img" />
+          </ion-avatar>
         </ion-card-content>
       </ion-card>
     </ion-list>

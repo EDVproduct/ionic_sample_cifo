@@ -5,6 +5,8 @@ import { DataService } from 'src/app/services/data.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { IonRouterOutlet, ModalController } from '@ionic/angular';
 import { VacancaModalComponent } from './vacanca-modal/vacanca-modal.component';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CameraService } from 'src/app/services/camera.service';
 
 @Component({
   selector: 'app-tab1',
@@ -16,10 +18,11 @@ export class Tab1Page {
   vacances: Vacanca[];
 
   vacancaForm: FormGroup;
+  photos = [];
 
   constructor(private dataService: DataService,
     private modalCtrl: ModalController,
-    private routerOutlet: IonRouterOutlet) {
+    private cameraService: CameraService) {
     dataService.getVacances().subscribe((res) => {
       console.log(res);
       this.vacances = res;
@@ -75,6 +78,12 @@ export class Tab1Page {
       component: VacancaModalComponent
     });
     await modal.present();
+  }
+
+  async doThePhoto(vacanca: Vacanca) {
+    const img = await this.cameraService.takePicture();
+    vacanca.img = img.url;
+    this.dataService.updateVacanca(vacanca);
   }
 
 }
